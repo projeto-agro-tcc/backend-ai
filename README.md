@@ -1,2 +1,4 @@
-# backend-machinelearning
-API para utilização do Machine Learning
+# backend-ia
+
+source venv/bin/activate
+pip install -r requirements.txt
