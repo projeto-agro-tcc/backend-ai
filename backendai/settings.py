@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'previsao',
+    'lstmforecast',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -78,19 +78,20 @@ WSGI_APPLICATION = 'backendai.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+URI_MONGO = "mongodb://root:monitoramento@127.0.0.1:27017/admin"
+DB_NAME = 'projeto_agro_ai'
+LSTM_FORECAST_COLLECTION = 'lstm_forecast'
 
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'CLIENT': {
-            "host": "mongodb://root:monitoramento@52.67.73.50:27017/admin",
-            "name": "back-ai",
+            "host": URI_MONGO,
+            "name": DB_NAME,
             "authMechanism": "SCRAM-SHA-1"
         }
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

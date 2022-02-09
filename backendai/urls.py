@@ -17,10 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from previsao.api.viewsets import PrevisaoViewSet
+from lstmforecast.api.viewsets import LSTMViewSet
 
 router = routers.DefaultRouter()
-router.register('previsao', PrevisaoViewSet, basename='Previsao')
+router.register('lstm', LSTMViewSet, basename='LSTM')
 
 urlpatterns = [
     path('', include(router.urls)),
