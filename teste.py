@@ -17,6 +17,13 @@ for d in data:
 
 df = pd.DataFrame(columns=['value'], data=value_real, index=time_real)
 df = df.resample('H').mean()
-print(df.head())
+
+real_data_to_forecast = []
+
+for index, row in df.iterrows():
+    item = {"time":str(index),"value":row.value}
+    real_data_to_forecast.append(item)
+
+
 
 

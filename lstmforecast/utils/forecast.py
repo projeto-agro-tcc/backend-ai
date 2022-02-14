@@ -1,6 +1,6 @@
 
 
-def forecast(start,end,dev_id,type,dev_model):
+def forecast(data,type,dev_model):
     pass
 
 
