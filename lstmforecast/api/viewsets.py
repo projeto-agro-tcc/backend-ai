@@ -41,11 +41,11 @@ class LSTMViewSet(ModelViewSet):
         start = math.ceil(datetime.datetime.timestamp(datetime.datetime.fromtimestamp(int(end)) - timedelta(hours=n)))
 
         # Realiza requisição de dados reais na API IOT
-        uri = "?timetostart="+str(start)+"000000"+"&timetoend="+str(end)+"000000"+"&dev_id="+dev_id+"&var="+map_var_to_collection(var)
-        req_iot = requests.get(URI_IOT+uri)
+        # uri = "?timetostart="+str(start)+"000000"+"&timetoend="+str(end)+"000000"+"&dev_id="+dev_id+"&var="+map_var_to_collection(var)
+        # req_iot = requests.get(URI_IOT+uri)
 
         # Realiza a formatação dos dados para a previsão
-        real_data_format = format_real_data_to_forecast(req_iot)
+        # real_data_format = format_real_data_to_forecast(req_iot)
 
         return Response('api ai', status=status.HTTP_200_OK)
 
