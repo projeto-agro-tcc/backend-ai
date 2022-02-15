@@ -75,8 +75,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backendai.wsgi.application'
 
-URI_IOT = "http://54.232.21.25:80/iot/findbyparams"
-# Database
+## API URIs
+
+# URI_IOT = "http://54.232.21.25:80/iot/findbyparams"
+URI_IOT = "http://localhost:8002/iot/findbyparams"
+
+## Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 URI_MONGO = "mongodb://root:monitoramento@127.0.0.1:27017/admin"
 DB_NAME = 'projeto_agro_ai'

@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from utils.MongoConfig import get_db_handle, get_collection_handle
 from backendai.settings import LSTM_FORECAST_COLLECTION, URI_IOT
-from lstmforecast.api.service import *
-from lstmforecast.utils.forecast import forecast
+from lstmforecast.api.LSTMservice import LSTMservice
+from lstmforecast.utils.LSTMforecast import LSTMforecast
 import datetime
 import math
 from datetime import timedelta
@@ -41,16 +41,17 @@ class LSTMViewSet(ModelViewSet):
         start = math.ceil(datetime.datetime.timestamp(datetime.datetime.fromtimestamp(int(end)) - timedelta(hours=n)))
 
         # Realiza requisição de dados reais na API IOT
-        uri = "?timetostart="+str(start)+"000000"+"&timetoend="+str(end)+"000000"+"&dev_id="+dev_id+"&var="+map_var_to_collection(var)
+        uri = "?timetostart="+str(start)+"000000"+"&timetoend="+str(end)+"000000"+"&dev_id="+dev_id+"&var="+LSTMservice.map_var_to_collection(var)
         req_iot = requests.get(URI_IOT+uri)
 
         # Realiza a formatação dos dados para a previsão
-        real_data_format = format_real_data_to_forecast(req_iot)
+        real_data_format = LSTMservice.format_real_data_to_forecast(req_iot.json())
 
         # Realiza previsão
-        previsao = forecast(real_data_format, type_forecast, model)
+        # previsao = LSTMforecast.forecast(real_data_format, type_forecast, model, var)
 
-        return Response('api ai', status=status.HTTP_200_OK)
+        return Response(str(real_data_format), status=status.HTTP_200_OK)
+
 
     @action(detail=False, methods=['GET'])
     def teste(self, request, *args, **kwargs):
