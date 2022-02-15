@@ -39,6 +39,6 @@ df2 = pd.DataFrame(columns=['value'],data=data,index=index)
 
 # separar dataframe em horas ou períodos
 
+list = pd.date_range(end = datetime.today(), periods = 2).to_pydatetime().tolist()
 
-
-
+print(list)

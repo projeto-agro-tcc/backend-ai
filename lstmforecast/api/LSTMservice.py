@@ -21,7 +21,7 @@ class LSTMservice:
     def map_var_to_collection(var):
 
         if var == "temp":
-            return "emw_temperature_temperature"
+            return "ewm_temperatura"
         else:
             return True
 

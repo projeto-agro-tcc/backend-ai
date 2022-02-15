@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
@@ -36,21 +38,27 @@ class LSTMViewSet(ModelViewSet):
         # Data inicio e final dos dados reais dependendo da previsão
         n = 96
         if type_forecast == "onehour":
-            n = 24
+            n = 12
 
         start = math.ceil(datetime.datetime.timestamp(datetime.datetime.fromtimestamp(int(end)) - timedelta(hours=n)))
 
         # Realiza requisição de dados reais na API IOT
-        uri = "?timetostart="+str(start)+"000000"+"&timetoend="+str(end)+"000000"+"&dev_id="+dev_id+"&var="+LSTMservice.map_var_to_collection(var)
+        start = str(start) + "000000"
+        end = str(end) + "000000"
+        uri = "?timetostart="+start+"&timetoend="+end+"&dev_id="+dev_id+"&var="+LSTMservice.map_var_to_collection(var)
         req_iot = requests.get(URI_IOT+uri)
 
         # Realiza a formatação dos dados para a previsão
-        real_data_format = LSTMservice.format_real_data_to_forecast(req_iot.json())
+        print(len(json.loads(req_iot.json())))
+        # real_data_format = LSTMservice.format_real_data_to_forecast(req_iot.json())
+
+        # Verificar se ha dado suficiente para a previsao
 
         # Realiza previsão
         # previsao = LSTMforecast.forecast(real_data_format, type_forecast, model, var)
 
-        return Response(str(real_data_format), status=status.HTTP_200_OK)
+        # return Response(str(real_data_format), status=status.HTTP_200_OK)
+        return Response('str(real_data_format)', status=status.HTTP_200_OK)
 
 
     @action(detail=False, methods=['GET'])
