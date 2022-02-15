@@ -1,8 +1,12 @@
-# Funcoes
+'''
+    Funcoes diversas para a manipulacao
+    e previsao dos dados utilizando LSTM
+'''
+import pandas as pd
+import numpy as np
+
 
 ''' Cria os datasets baseado no valor de n_in '''
-
-
 def dataframe_to_Xy(df, n_in):
     df_np = df
     X, y = [], []
@@ -12,21 +16,12 @@ def dataframe_to_Xy(df, n_in):
     return np.array(X), np.array(y)
 
 
-''' Converte dataframe em csv '''
-
-
-def dataframe_to_csv(dataframe, path):
-    dataframe['Data'] = dataframe.index
-    dataframe.to_csv(path, index=False)
-
 
 '''
     Formatacao dos dados que serao utilizados
     na previsao [[a,b,c],[d,e,f]] -> [[[[a],[b],[c]]],[[[d],[e],[f]]]] -> 
     format[0] = [[[a],[b],[c]]]
 '''
-
-
 def format_data(data):
     format = []
     for d in data:
@@ -42,8 +37,6 @@ def format_data(data):
     new_data = [f]
     result = [[[b],[c],[d],[e],[f]]]
 '''
-
-
 def new_data(data, new_data):
     new_array_data = []
     new_array_data_shift = []
@@ -63,28 +56,7 @@ def new_data(data, new_data):
     return res[0]
 
 
-
-
-
-''' Salva modelo '''
-
-
-def model_save(train, test, min_value, max_value, model, path):
-    try:
-        model.save(path)
-        dataframe_to_csv(train, path + '/train_set.csv')
-        dataframe_to_csv(test, path + '/test_set.csv')
-        norm_df = pd.DataFrame({'min_value': [min_value], 'max_value': [max_value]})
-        dataframe_to_csv(norm_df, path + '/norm.csv')
-        return 1
-    except Exception as e:
-        print('> Erro ao salvar modelo!')
-        return 0
-
-
 ''' Carrega modelo '''
-
-
 def load_model(path):
     try:
         model = keras.models.load_model(path)
@@ -114,8 +86,6 @@ def load_model(path):
     para 2 dias.
 
 '''
-
-
 def make_predict_dois_dias(col, data, n, m, model):
     # Lista de m valores reais
     train_data = data[col][-m:].values
@@ -153,8 +123,6 @@ def make_predict_dois_dias(col, data, n, m, model):
   model: modelo treinado
 
 '''
-
-
 def make_predict_proxima_hora(col, data, n, m, model):
     forecast = []
     list_prev = []
@@ -184,3 +152,11 @@ def make_predict_proxima_hora(col, data, n, m, model):
     return forecast
 
 
+'''
+    Separa o dataframe utilizado 
+    para o treinamento no conjunto
+    de horas especifico para a estrategia
+    de subamostras do dia
+'''
+def df_per_subsamples():
+    pass

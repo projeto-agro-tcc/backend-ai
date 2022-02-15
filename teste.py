@@ -24,6 +24,21 @@ for index, row in df.iterrows():
     item = {"time":str(index),"value":row.value}
     real_data_to_forecast.append(item)
 
+##### JÁ REALIZANDO A PREVISAO
+
+# mapear qual variável utilizar
+
+# criar data set
+
+
+real_data_to_forecast = json.loads(json.dumps(real_data_to_forecast))
+index = [datetime.strptime(t['time'], '%Y-%m-%d %H:%M:%S') for t in real_data_to_forecast]
+data = [v['value'] for v in real_data_to_forecast]
+
+df2 = pd.DataFrame(columns=['value'],data=data,index=index)
+
+# separar dataframe em horas ou períodos
+
 
 
 
