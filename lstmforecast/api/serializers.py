@@ -1,10 +1,5 @@
-from django.contrib.auth.models import Group
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 
-
-# class LSTMSerializer(ModelSerializer):
-#
-#     class Meta:
-#         model = Previsao
-#         fields = ('sn_endpoint',)
-#         # extra_kwargs = {'password': {'write_only': True, 'required': True}}
+class LSTMSerializer(serializers.Serializer):
+    time = serializers.IntegerField()
+    value = serializers.FloatField()

@@ -15,18 +15,6 @@ class LSTMservice:
         pass
 
     '''
-        Recebe variavel e retorna
-        nome da colecao no MongoDB
-    '''
-    def map_var_to_collection(self, var):
-
-        if var == "temp":
-            return "ewm_temperatura"
-        else:
-            return True
-
-
-    '''
         Realiza a formatacao dos dados vindos do banco
         para o formato [{"time":123456789,"value":25}, ... ]
     '''

@@ -9,6 +9,8 @@ from utils.MongoConfig import get_db_handle, get_collection_handle
 from backendai.settings import LSTM_FORECAST_COLLECTION, URI_IOT
 from lstmforecast.api.LSTMservice import LSTMservice
 from lstmforecast.utils.LSTMforecast import LSTMforecast
+from lstmforecast.api.serializers import LSTMSerializer
+from backendai.enviroments import COLLECTIONS_EMW
 import datetime
 import math
 from datetime import timedelta
@@ -46,7 +48,7 @@ class LSTMViewSet(ModelViewSet):
         lstm_service = LSTMservice()
         start = str(start) + "000000"
         end = str(end) + "000000"
-        uri = "?timetostart="+start+"&timetoend="+end+"&dev_id="+dev_id+"&var="+lstm_service.map_var_to_collection(var)
+        uri = "?timetostart="+start+"&timetoend="+end+"&dev_id="+dev_id+"&var="+COLLECTIONS_EMW[var]
         req_iot = requests.get(URI_IOT+uri)
 
         # Realiza a formatação dos dados para a previsão
@@ -57,6 +59,8 @@ class LSTMViewSet(ModelViewSet):
         # Realiza previsão
         lstm_forecast = LSTMforecast()
         previsao = lstm_forecast.forecast(real_data_format, type_forecast, model, var)
+
+        # response = LSTMSerializer(previsao).data
 
         return Response(previsao, status=status.HTTP_200_OK)
 
