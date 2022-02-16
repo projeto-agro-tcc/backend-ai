@@ -18,7 +18,7 @@ class LSTMservice:
         Recebe variavel e retorna
         nome da colecao no MongoDB
     '''
-    def map_var_to_collection(var):
+    def map_var_to_collection(self, var):
 
         if var == "temp":
             return "ewm_temperatura"
@@ -30,7 +30,7 @@ class LSTMservice:
         Realiza a formatacao dos dados vindos do banco
         para o formato [{"time":123456789,"value":25}, ... ]
     '''
-    def format_real_data_to_forecast(data_db):
+    def format_real_data_to_forecast(self, data_db):
 
         data = json.loads(data_db)
 
@@ -39,7 +39,7 @@ class LSTMservice:
         for d in data:
             time_s = str(d['time'])
             time_real.append(datetime.fromtimestamp(int(time_s[:-6])))
-            value_real.append(d['value'])
+            value_real.append(d['value']-273.15)
 
         df = pd.DataFrame(columns=['value'], data=value_real, index=time_real)
         df = df.resample('H').mean()
