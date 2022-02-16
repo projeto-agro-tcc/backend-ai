@@ -6,8 +6,10 @@ from lstmforecast.utils.LSTMfunctions import LSTMfunctions
 from datetime import datetime
 import pandas as pd
 import json
+import itertools
 from tensorflow import keras
 from keras.models import Sequential, load_model
+
 
 class LSTMforecast:
 
@@ -48,6 +50,13 @@ class LSTMforecast:
             previsao.append(p2[0][i] * (max_value2 - min_value2) + min_value2)
             previsao.append(p3[0][i] * (max_value3 - min_value3) + min_value3)
             previsao.append(p4[0][i] * (max_value4 - min_value4) + min_value4)
+
+        start = datetime.strptime(str(df.index[0]), '%Y-%m-%d %H:%M:%S')
+        dates = itertools.islice(lstm_functions.create_future_dates(start), 48)
+        list_future_dates = [[d for d in dates]]
+        df_future_dates = pd.DataFrame(columns=['value'], data=[], index=list_future_dates)
+
+        # CONCATENAR DATAFRAMES
 
         return 0
 

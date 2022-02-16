@@ -10,6 +10,8 @@ import numpy as np
 import os
 from tensorflow import keras
 from keras.models import Sequential, load_model
+import datetime
+import itertools
 
 
 class LSTMfunctions:
@@ -195,3 +197,8 @@ class LSTMfunctions:
                 df4 = pd.concat([df4, row_df])
 
         return df1, df2, df3, df4
+
+    def create_future_dates(self, start_date):
+        while True:
+            yield start_date
+            start_date = start_date + datetime.timedelta(hours=1)
