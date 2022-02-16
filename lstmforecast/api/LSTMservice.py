@@ -30,7 +30,7 @@ class LSTMservice:
         Realiza a formatacao dos dados vindos do banco
         para o formato [{"time":123456789,"value":25}, ... ]
     '''
-    def format_real_data_to_forecast(self, data_db):
+    def format_real_data_to_forecast(self, data_db, var):
 
         data = json.loads(data_db)
 
@@ -39,7 +39,11 @@ class LSTMservice:
         for d in data:
             time_s = str(d['time'])
             time_real.append(datetime.fromtimestamp(int(time_s[:-6])))
-            value_real.append(d['value']-273.15)
+
+            if var == 'temp':
+                value_real.append(d['value']-273.15)
+            else:
+                value_real.append(d['value'])
 
         df = pd.DataFrame(columns=['value'], data=value_real, index=time_real)
         df = df.resample('H').mean()

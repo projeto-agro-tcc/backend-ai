@@ -60,7 +60,13 @@ class LSTMforecast:
         df_result = pd.concat([df, df_future_dates])
         df_result = df_result.resample('H').mean()
 
-        return 0
+        real_data_and_forecast = []
+
+        for index, row in df_result.iterrows():
+            item = {"time": str(index), "value": row.value}
+            real_data_and_forecast.append(item)
+
+        return real_data_and_forecast
 
     def onehour_forecast(self, df, dev_model, var):
         pass

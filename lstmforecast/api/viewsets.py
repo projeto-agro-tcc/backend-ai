@@ -50,7 +50,7 @@ class LSTMViewSet(ModelViewSet):
         req_iot = requests.get(URI_IOT+uri)
 
         # Realiza a formatação dos dados para a previsão
-        real_data_format = lstm_service.format_real_data_to_forecast(req_iot.json())
+        real_data_format = lstm_service.format_real_data_to_forecast(req_iot.json(), var)
 
         # Verificar se ha dado suficiente para a previsao
 
@@ -58,7 +58,6 @@ class LSTMViewSet(ModelViewSet):
         lstm_forecast = LSTMforecast()
         previsao = lstm_forecast.forecast(real_data_format, type_forecast, model, var)
 
-        # return Response(str(real_data_format), status=status.HTTP_200_OK)
-        return Response('str(real_data_format)', status=status.HTTP_200_OK)
+        return Response(previsao, status=status.HTTP_200_OK)
 
 
