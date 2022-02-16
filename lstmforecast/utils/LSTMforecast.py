@@ -36,22 +36,18 @@ class LSTMforecast:
         df3['value'] = (df3['value'] - min_value3) / (max_value3 - min_value3)
         df4['value'] = (df4['value'] - min_value4) / (max_value4 - min_value4)
 
-        # p1 = lstm_functions.make_predict_dois_dias('value', df1[:24], 12, 24, model1)
-        # p2 = lstm_functions.make_predict_dois_dias('value', df2[:24], 12, 24, model2)
+        p1 = lstm_functions.make_predict_dois_dias('value', df1[:24], 12, 24, model1)
+        p2 = lstm_functions.make_predict_dois_dias('value', df2[:24], 12, 24, model2)
         p3 = lstm_functions.make_predict_dois_dias('value', df3[:24], 12, 24, model3)
-        # p4 = lstm_functions.make_predict_dois_dias('value', df4[:24], 12, 24, model4)
-
-        print(p3)
+        p4 = lstm_functions.make_predict_dois_dias('value', df4[:24], 12, 24, model4)
 
         previsao = []
 
         for i in range(len(p3[0])):
-            # previsao.append(p1[0][i] * (max_value1 - min_value1) + min_value1)
-            # previsao.append(p2[0][i] * (max_value2 - min_value2) + min_value2)
+            previsao.append(p1[0][i] * (max_value1 - min_value1) + min_value1)
+            previsao.append(p2[0][i] * (max_value2 - min_value2) + min_value2)
             previsao.append(p3[0][i] * (max_value3 - min_value3) + min_value3)
-            # previsao.append(p4[0][i] * (max_value4 - min_value4) + min_value4)
-
-        print(previsao)
+            previsao.append(p4[0][i] * (max_value4 - min_value4) + min_value4)
 
         return 0
 
