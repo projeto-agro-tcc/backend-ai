@@ -40,6 +40,7 @@ df2 = pd.DataFrame(columns=['value'],data=data,index=index)
 import datetime
 import itertools
 
+# print(str(df2.index[-1]))
 
 def date_generator(start_date):
   while True:
@@ -47,13 +48,17 @@ def date_generator(start_date):
     start_date = start_date + datetime.timedelta(hours=1)
 
 
-start = datetime.datetime.strptime('2010-01-02 00:00:00', '%Y-%m-%d %H:%M:%S')
+start = datetime.datetime.strptime(str(df2.index[-1]), '%Y-%m-%d %H:%M:%S')
 dates = itertools.islice(date_generator(start), 48)
-list_dates = [[d for d in dates]]
+list_dates = []
+[list_dates.append(d) for d in dates]
 
 df3 = pd.DataFrame(columns=['value'],data=[],index=list_dates)
 
-print(df3.head(48))
+df_r = pd.concat([df2,df3])
+
+print(df_r.head())
+
 
 
 

@@ -51,12 +51,14 @@ class LSTMforecast:
             previsao.append(p3[0][i] * (max_value3 - min_value3) + min_value3)
             previsao.append(p4[0][i] * (max_value4 - min_value4) + min_value4)
 
-        start = datetime.strptime(str(df.index[0]), '%Y-%m-%d %H:%M:%S')
+        start = datetime.strptime(str(df.index[-1:]), '%Y-%m-%d %H:%M:%S')
         dates = itertools.islice(lstm_functions.create_future_dates(start), 48)
-        list_future_dates = [[d for d in dates]]
-        df_future_dates = pd.DataFrame(columns=['value'], data=[], index=list_future_dates)
+        list_dates = []
+        [list_dates.append(d) for d in dates]
 
-        # CONCATENAR DATAFRAMES
+        df_future_dates = pd.DataFrame(columns=['value'], data=[], index=list_dates)
+        df_result = pd.concat([df, df_future_dates])
+        df_result = df_result.resample('H').mean()
 
         return 0
 
