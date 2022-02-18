@@ -1,5 +1,5 @@
-# URI_MONGO = "mongodb://admin:123456@localhost:27017/admin"
-URI_MONGO = "mongodb://root:e3wsd4rpo98ijnG6T24443s1qSed@localhost:27017/admin"
+#URI_MONGO = "mongodb://admin:123456@127.0.0.1:27017"
+URI_MONGO = "mongodb://root:e3wsd4rpo98ijnG6T24443s1qSed@localhost:27017"
 DB_NAME = 'projeto_agro_ai'
 LSTM_FORECAST_COLLECTION = 'lstm_forecast'
 

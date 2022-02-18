@@ -1,7 +1,7 @@
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-from backendai import enviroments
+from backendai.enviroments import DB_NAME, URI_MONGO, LSTM_FORECAST_COLLECTION
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -77,8 +77,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'CLIENT': {
-            "host": enviroments.URI_MONGO,
-            "name": enviroments.DB_NAME,
+            "host": URI_MONGO,
+            "name": DB_NAME,
             "authMechanism": "SCRAM-SHA-1"
         }
     }
