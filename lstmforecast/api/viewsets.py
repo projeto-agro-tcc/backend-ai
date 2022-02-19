@@ -28,11 +28,11 @@ class LSTMViewSet(ModelViewSet):
         #db_handle, mongo_client = get_db_handle()
         #collection = get_collection_handle(db_handle, LSTM_FORECAST_COLLECTION)
 
-        # session = requests.Session()
-        # # retry = Retry(connect=3, backoff_factor=0.5)
-        # # adapter = HTTPAdapter(max_retries=retry)
-        # # session.mount('http://', adapter)
-        # # session.mount('https://', adapter)
+        session = requests.Session()
+        retry = Retry(connect=3, backoff_factor=0.5)
+        adapter = HTTPAdapter(max_retries=retry)
+        session.mount('http://', adapter)
+        session.mount('https://', adapter)
 
         # Requisicao vinda do CORE
         req_core = request.GET.dict()
@@ -55,7 +55,7 @@ class LSTMViewSet(ModelViewSet):
         start = str(start) + "000000"
         end = str(end) + "000000"
         uri = "?timetostart="+start+"&timetoend="+end+"&dev_id="+dev_id+"&var="+var
-        req_iot = requests.get(API_IOT+uri)
+        req_iot = session.get(API_IOT+uri)
 
         req_iot_str = str(req_iot.json())
         req_iot_str = req_iot_str.replace("\'", "\"")
