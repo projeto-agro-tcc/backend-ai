@@ -1,20 +1,20 @@
 import json
-
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from utils.MongoConfig import get_db_handle, get_collection_handle
-from backendai.settings import LSTM_FORECAST_COLLECTION, URI_IOT
+from backendai.enviroments import API_IOT
 from lstmforecast.api.LSTMservice import LSTMservice
 from lstmforecast.utils.LSTMforecast import LSTMforecast
 from lstmforecast.api.serializers import LSTMSerializer
-from backendai.enviroments import COLLECTIONS_EMW
 import datetime
 import math
 from datetime import timedelta
 import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 
 
 class LSTMViewSet(ModelViewSet):
@@ -27,6 +27,12 @@ class LSTMViewSet(ModelViewSet):
 
         #db_handle, mongo_client = get_db_handle()
         #collection = get_collection_handle(db_handle, LSTM_FORECAST_COLLECTION)
+
+        # session = requests.Session()
+        # # retry = Retry(connect=3, backoff_factor=0.5)
+        # # adapter = HTTPAdapter(max_retries=retry)
+        # # session.mount('http://', adapter)
+        # # session.mount('https://', adapter)
 
         # Requisicao vinda do CORE
         req_core = request.GET.dict()
@@ -49,7 +55,8 @@ class LSTMViewSet(ModelViewSet):
         start = str(start) + "000000"
         end = str(end) + "000000"
         uri = "?timetostart="+start+"&timetoend="+end+"&dev_id="+dev_id+"&var="+var
-        req_iot = requests.get(URI_IOT+uri)
+        req_iot = requests.get(API_IOT+uri)
+
         req_iot_str = str(req_iot.json())
         req_iot_str = req_iot_str.replace("\'", "\"")
 

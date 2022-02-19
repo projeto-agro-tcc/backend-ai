@@ -20,7 +20,7 @@ from rest_framework import routers
 from lstmforecast.api.viewsets import LSTMViewSet
 
 router = routers.DefaultRouter()
-router.register('lstm', LSTMViewSet, basename='LSTM')
+router.register('lstmforecast', LSTMViewSet, basename='LSTM')
 
 urlpatterns = [
     path('', include(router.urls)),
