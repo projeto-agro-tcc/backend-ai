@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'backendai.wsgi.application'
 ## API URIs
 
 # URI_IOT = "http://54.232.21.25:80/iot/findbyparams"
-URI_IOT = "http://localhost:8002/iot/findbyparams"
+URI_IOT = "http://localhost:8001/iot/findbyparams"
 
 ## Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

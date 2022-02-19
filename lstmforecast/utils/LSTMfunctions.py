@@ -198,7 +198,7 @@ class LSTMfunctions:
 
         return df1, df2, df3, df4
 
-    def create_future_dates(self, start_date):
+    def create_future_dates(self, start_date, hours):
         while True:
             yield start_date
-            start_date = start_date + datetime.timedelta(hours=1)
+            start_date = start_date + datetime.timedelta(hours=hours)

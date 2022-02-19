@@ -25,8 +25,8 @@ class LSTMViewSet(ModelViewSet):
     @action(detail=False, methods=['GET'])
     def get_forecast(self, request, *args, **kwargs):
 
-        db_handle, mongo_client = get_db_handle()
-        collection = get_collection_handle(db_handle, LSTM_FORECAST_COLLECTION)
+        #db_handle, mongo_client = get_db_handle()
+        #collection = get_collection_handle(db_handle, LSTM_FORECAST_COLLECTION)
 
         # Requisicao vinda do CORE
         req_core = request.GET.dict()
@@ -35,7 +35,7 @@ class LSTMViewSet(ModelViewSet):
         dev_id = req_core["dev_id"]
         var = req_core["var"]
         model = req_core["model"]
-        type_forecast = req_core["type_forecast"]
+        type_forecast = req_core["typeforecast"]
 
         # Data inicio e final dos dados reais dependendo da previsão
         n = 96
@@ -48,13 +48,14 @@ class LSTMViewSet(ModelViewSet):
         lstm_service = LSTMservice()
         start = str(start) + "000000"
         end = str(end) + "000000"
-        uri = "?timetostart="+start+"&timetoend="+end+"&dev_id="+dev_id+"&var="+COLLECTIONS_EMW[var]
+        uri = "?timetostart="+start+"&timetoend="+end+"&dev_id="+dev_id+"&var="+var
         req_iot = requests.get(URI_IOT+uri)
+        req_iot_str = str(req_iot.json())
+        req_iot_str = req_iot_str.replace("\'", "\"")
 
         # Realiza a formatação dos dados para a previsão
-        real_data_format = lstm_service.format_real_data_to_forecast(req_iot.json(), var)
-
-        # Verificar se ha dado suficiente para a previsao
+        real_data_format = lstm_service.format_real_data_to_forecast(req_iot_str, var)
+        print(len(real_data_format))
 
         # Realiza previsão
         lstm_forecast = LSTMforecast()
@@ -62,6 +63,6 @@ class LSTMViewSet(ModelViewSet):
 
         # response = LSTMSerializer(previsao).data
 
-        return Response(previsao, status=status.HTTP_200_OK)
+        return Response('previsao', status=status.HTTP_200_OK)
 
 

@@ -43,3 +43,4 @@ class LSTMservice:
             real_data_to_forecast.append(item)
 
         return real_data_to_forecast
+
