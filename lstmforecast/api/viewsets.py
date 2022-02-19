@@ -55,14 +55,11 @@ class LSTMViewSet(ModelViewSet):
 
         # Realiza a formatação dos dados para a previsão
         real_data_format = lstm_service.format_real_data_to_forecast(req_iot_str, var)
-        print(len(real_data_format))
 
         # Realiza previsão
         lstm_forecast = LSTMforecast()
         previsao = lstm_forecast.forecast(real_data_format, type_forecast, model, var)
 
-        # response = LSTMSerializer(previsao).data
-
-        return Response('previsao', status=status.HTTP_200_OK)
+        return Response(previsao, status=status.HTTP_200_OK)
 
 
