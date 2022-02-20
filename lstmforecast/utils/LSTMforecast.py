@@ -44,6 +44,13 @@ class LSTMforecast:
         #print(df1.head(25))
         #print(len(list_df[0].index))
 
+        df1 = list_df[0]
+        df2 = list_df[1]
+        df3 = list_df[2]
+        df4 = list_df[3]
+
+        print(len(df1), len(df2), len(df3), len(df4))
+
         path_model = '/home/marcelo/Documents/git/backend-ai/lstmforecast/utils/models/subamostras/'
 
         train_set1, test_set1, min_value1, max_value1, model1 = lstm_functions.my_load_model(path_model + dev_model + '_modelo1_' + var + '_24')
