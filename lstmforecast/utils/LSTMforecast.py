@@ -7,6 +7,7 @@ from datetime import datetime
 import pandas as pd
 import json
 import itertools
+from backendai.enviroments import path_models
 
 
 class LSTMforecast:
@@ -43,7 +44,7 @@ class LSTMforecast:
         df3 = list_df[2]
         df4 = list_df[3]
 
-        path_model = '/home/marcelo/Documents/git/backend-ai/lstmforecast/utils/models/subamostras/'
+        path_model = path_models
 
         train_set1, test_set1, min_value1, max_value1, model1 = lstm_functions.my_load_model(path_model + dev_model + '_modelo1_' + var + '_24')
         train_set2, test_set2, min_value2, max_value2, model2 = lstm_functions.my_load_model(path_model + dev_model + '_modelo2_' + var + '_24')
