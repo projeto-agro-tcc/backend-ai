@@ -7,8 +7,6 @@ from datetime import datetime
 import pandas as pd
 import json
 import itertools
-from tensorflow import keras
-from keras.models import Sequential, load_model
 
 
 class LSTMforecast:
@@ -40,16 +38,10 @@ class LSTMforecast:
                 df_result = pd.concat([list_df[i], df_future_dates])
                 list_df[i] = df_result
 
-        # print(len(df1), len(df2), len(df3), len(df4))
-        #print(df1.head(25))
-        #print(len(list_df[0].index))
-
         df1 = list_df[0]
         df2 = list_df[1]
         df3 = list_df[2]
         df4 = list_df[3]
-
-        print(len(df1), len(df2), len(df3), len(df4))
 
         path_model = '/home/marcelo/Documents/git/backend-ai/lstmforecast/utils/models/subamostras/'
 

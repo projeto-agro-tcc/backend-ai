@@ -2,16 +2,13 @@
     Funcoes diversas para a manipulacao
     e previsao dos dados utilizando LSTM
 '''
-import this
-
 import pandas as pd
-import math
 import numpy as np
-import os
 from tensorflow import keras
-from keras.models import Sequential, load_model
 import datetime
-import itertools
+import os
+
+os.environ['CUDA_VISIBLE_DEVICES'] = "-1"
 
 
 class LSTMfunctions:
