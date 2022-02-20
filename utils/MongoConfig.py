@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from backendai.settings import URI_MONGO, DB_NAME
+from backendai.enviroments import URI_MONGO, DB_NAME
 
 
 def get_db_handle():
