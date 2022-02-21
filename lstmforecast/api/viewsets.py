@@ -54,7 +54,7 @@ class LSTMViewSet(ModelViewSet):
         lstm_service = LSTMservice()
         start = str(start) + "000000"
         end = str(end) + "000000"
-        uri = "?timetostart="+start+"&timetoend="+end+"&dev_id="+dev_id+"&var="+var
+        uri = "iot/findbyparams?timetostart="+start+"&timetoend="+end+"&dev_id="+dev_id+"&var="+var
         req_iot = session.get(API_IOT+uri)
 
         req_iot_str = str(req_iot.json())
