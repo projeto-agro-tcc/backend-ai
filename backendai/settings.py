@@ -1,7 +1,7 @@
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# from backendai.enviroments import DB_NAME, URI_MONGO, LSTM_FORECAST_COLLECTION
+from backendai.enviroments import DB_NAME, URI_MONGO, LSTM_FORECAST_COLLECTION
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -67,31 +67,23 @@ WSGI_APPLICATION = 'backendai.wsgi.application'
 ## Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     # 'default': {
+#     #     'ENGINE': 'django.db.backends.sqlite3',
+#     #     'NAME': BASE_DIR / 'db.sqlite3',
+#     # }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'CLIENT': {
+            "host": URI_MONGO,
+            "name": DB_NAME,
+            "authMechanism": "SCRAM-SHA-1"
+        }
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'backend_iot',
-    #     'USER': 'root',
-    #     'PASSWORD': '2021monitoramento',
-    #     'HOST': 'localhost',
-    #     'PORT': '',
-    # }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'CLIENT': {
-#             "host": URI_MONGO,
-#             "name": DB_NAME,
-#             "authMechanism": "SCRAM-SHA-1"
-#         }
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
